@@ -4,8 +4,8 @@ const puppeteer = require('puppeteer');
 
 const ENTRY_URL     = 'https://mit.orsted.dk/login/email/';
 
-const USER_ID       = '<user-id / email>';
-const USER_PW       = '<password>';
+const USER_ID       = 'jens@bennerhq.com';
+const USER_PW       = 'fido99kalle';
 
 /***
  * https://api.obviux.dk/v2/authenticate
@@ -22,10 +22,10 @@ const USER_PW       = '<password>';
  * https://capi.obviux.dk/v1/consumption/customer/2bdfede1-8fda-446e-a541-2416b319d138/ean/571313174110046541/yearly/?from=2014-08-26&to=2019-08-26
  * https://capi.obviux.dk/v1/consumption/customer/2bdfede1-8fda-446e-a541-2416b319d138/ean/571313174110046541/monthly/?from=2014-08-26&to=2019-08-26
  */
-const FILTER_URL    = '';
+const FILTER_URL    = 'https://capi.obviux.dk/v1/consumption/customer/';
 
 (async () => {
-    var consumption = [];
+    var filtered = [];
 
     const browser = await puppeteer.launch();
 
@@ -48,7 +48,7 @@ const FILTER_URL    = '';
                 url: url,
                 data: json
             };
-            consumption.push(item);
+            filtered.push(item);
         }).catch((error) => {
             // ...
         });
@@ -58,7 +58,6 @@ const FILTER_URL    = '';
         const request = response.request();
         const type = request.resourceType();
         const url = request.url();
-
         if ((type === "xhr") && (url.indexOf(FILTER_URL) === 0)) {
             store(response, url);
         }
@@ -70,5 +69,5 @@ const FILTER_URL    = '';
 
     await browser.close();
 
-    console.log(JSON.stringify(consumption, null, 2));
+    console.log(JSON.stringify(filtered, null, 2));
 })();
