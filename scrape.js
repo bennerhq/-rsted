@@ -4,8 +4,8 @@ const puppeteer = require('puppeteer');
 
 const ENTRY_URL     = 'https://mit.orsted.dk/login/email/';
 
-const USER_ID       = 'jens@bennerhq.com';
-const USER_PW       = 'fido99kalle';
+const USER_ID       = '<user id / email>';
+const USER_PW       = '<password>';
 
 /***
  * https://api.obviux.dk/v2/authenticate
